@@ -102,6 +102,10 @@ const generarCartas = () => {
 </script>
 
 <style scoped>
+
+.lista{
+    list-style-type: none;
+}    
 :global(body) {
     background-color: #f7f7f7;
 }

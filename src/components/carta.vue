@@ -1,5 +1,5 @@
 <template>
-    <div class="divCarta">
+    <div class="divCarta carta">
         <div class="divClase">
             <span class="textClase">{{ props.clase }}</span>
         </div>
@@ -153,8 +153,6 @@ const props = defineProps({
 .divNombre {
     display: flex;
     align-items: center;
-
-    width: 100%;
     min-height: 15mm;
 
 }
@@ -252,9 +250,9 @@ const props = defineProps({
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
 
     border-top: 0;
-    width: 100%;
     height: 100%;
     overflow: hidden;
 

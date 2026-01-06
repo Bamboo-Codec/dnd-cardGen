@@ -1,12 +1,22 @@
 <template>
     <header>
-        <button @click="volver()">Volver</button>
+        <button class="no-print" @click="volver()">Volver</button>
+        <button class="no-print" @click="imprimir()">Imprimir</button>
     </header>
-
-    <Carta v-for="carta in cartasFinales" :key="carta.id" v-bind="carta"/>
+    <div class="wrap sheet">
+        <Carta v-for="carta in cartasFinales" :key="carta.id" v-bind="carta"/>
+    </div>
 
 
 </template>
+
+<style scoped>
+    .wrap{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5mm;
+    }
+</style>
 
 <script setup>
 import Carta from './carta.vue'
@@ -18,6 +28,10 @@ const conjuros = ref([])
 const useConjuros = useConjurosStore()
 const MAX_CARACTERES = 661
 const cartasFinales = ref([])
+
+const imprimir = () => {
+  window.print()
+}
 
 onMounted(() => {
     const originales = useConjuros.getConjuros()
