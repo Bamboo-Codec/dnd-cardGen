@@ -5,7 +5,7 @@ import Detalles from "../components/detalles.vue";
 
 const router = createRouter(
     {
-        history: createWebHistory(import.meta.env.BASE_URL), //Creo historial
+        history: createWebHistory(), //Creo historial
         routes: [
             {
                 path:"/",
