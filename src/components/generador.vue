@@ -1,7 +1,7 @@
 <template>
-    <header>
-        <button class="no-print" @click="volver()">Volver</button>
-        <button class="no-print" @click="imprimir()">Imprimir</button>
+    <header class="header no-print">
+        <button style="margin-left: 2%;" class="no-print" @click="volver()">Volver</button>
+        <button style="margin-right: 2%;" class="no-print" @click="imprimir()">Imprimir</button>
     </header>
     <div class="wrap sheet">
         <Carta v-for="carta in cartasFinales" :key="carta.id" v-bind="carta"/>
@@ -11,11 +11,27 @@
 </template>
 
 <style scoped>
+
     .wrap{
+        margin-top:60px;
         display: flex;
         flex-wrap: wrap;
         gap: 5mm;
     }
+    .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Lo fija en la ventana */
+    top: 0; /* Lo pega a la parte superior */
+    left: 0; /* Lo pega al borde izquierdo */
+    width: 100%; /* Ocupa todo el ancho */
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
 </style>
 
 <script setup>

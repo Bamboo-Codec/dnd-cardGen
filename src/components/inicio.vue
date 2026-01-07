@@ -1,7 +1,8 @@
 <template>
 
-<header>
-    <button @click="generarCartas()">Generar cartas</button>
+<header class="header">
+    <button style="margin-left: 2%;" @click="generarCartas()">Generar cartas</button>
+    <router-link to="/detalles" style="margin-right: 2%; color:white;">version 0.1</router-link>
 </header>
 
     <div class="contenedor">
@@ -103,6 +104,27 @@ const generarCartas = () => {
 
 <style scoped>
 
+    body {
+    margin: 0; /* Elimina el margen por defecto */
+    padding-top: 60px; /* Espacio para el header fijo, ajusta según tu altura */
+    font-family: sans-serif;
+  }
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Lo fija en la ventana */
+    top: 0; /* Lo pega a la parte superior */
+    left: 0; /* Lo pega al borde izquierdo */
+    width: 100%; /* Ocupa todo el ancho */
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
 .lista{
     list-style-type: none;
 }    
@@ -111,6 +133,7 @@ const generarCartas = () => {
 }
 
 .contenedor {
+    margin-top:20px;
     display: flex;
     width: 80%;
 }
