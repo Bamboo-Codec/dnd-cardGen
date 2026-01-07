@@ -14,20 +14,28 @@ const router = createRouter(
             { //Inicio
                 path: "/inicio",
                 name: 'inicio',
-                component: Inicio
+                component: Inicio,
+                meta: {title: "D&D CardGen | Inicio"}
             },
             {
                 path: "/generador",
                 name: "generador",
-                component: Generador
+                component: Generador,
+                meta: {title: "D&D CardGen | Generador"}
+
             },
             {
                 path:"/detalles",
                 name: "detalles",
-                component: Detalles
+                component: Detalles,
+                meta: {title: "D&D CardGen | Detalles"}
             }
         ]
     }
 )
+
+router.afterEach((to) => {
+    document.title = to.meta.title || "D&D CardGen"
+})
 
 export default router
