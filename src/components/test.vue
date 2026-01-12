@@ -30,6 +30,8 @@ import TablaConjuros from './tablaConjuros.vue';
 .modulo {
     overflow: hidden;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
@@ -62,35 +64,25 @@ import TablaConjuros from './tablaConjuros.vue';
 
 .container{
     display: flex;
-    flex-wrap: wrap;
+    flex:1;
+    overflow: hidden;
     background-color: #ffde59;
-    width: 100%;
-    height: 100%;
+    padding: 40px;
+    gap: 40px;
+    
 }
 
 .tableContainer{
-    margin-top: 40px;
-    margin-left: 40px;
     border: 5px solid #a83605;
     width:80%;
-    height: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: start;
+    height: 100%;
     overflow-y: auto;
 }
 
 .listContainer{
-    position: absolute;
-    margin-top: 40px;
-    margin-right: 40px;
-    margin-left: 40px;
-    right: 0;
     border: 5px solid #a83605;
     width: 13%;
-    height: 70%;
-    justify-content: center;
-    align-items: start;
     overflow-y: auto;
+    height: 100%;
 }
 </style>
