@@ -18,11 +18,12 @@ export const useConjurosStore = defineStore('conjuros', () => {
         }
 
         console.log(
-            '📦 Seleccionados:',
+            'Seleccionados:',
             seleccionados.value.map(c => c.name)
         )
     }
 
+    //Retorna true si la lista contiene el indice
     const estaSeleccionado = (conjuroIndex) => {
         return seleccionados.value.some(c => c.index === conjuroIndex)
     }

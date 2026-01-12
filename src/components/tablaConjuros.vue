@@ -38,8 +38,11 @@
             <template v-for="(carta, index) in cartas" :key="index">
                 <!-- fila principal -->
                 <tr>
-                    <td @click="toggleSelected(index)"><img style="width: 10px; transition: transform 0.2s ease;" src="/flecha-conjuro.png" :class="{rotar: abiertas.has(index)}"></img></td>
-                    <td>C</td>
+                    <td @click="toggleAbiertas(index)"><img style="width: 10px; transition: transform 0.2s ease;" src="/flecha-conjuro.png" :class="{rotar: abiertas.has(index)}"></img></td>
+                    <td>
+                        <input @click="conjurosStore.toggleConjuro(carta)" :checked="conjurosStore.estaSeleccionado(carta.index)" class="checkbox-oculto" type="checkbox" :id="'check'+index">
+                        <label  :for="'check'+index" class="check-custom"></label>
+                    </td>
                     <td style="text-align: left;">{{ carta.name }}</td>
                     <td>{{ carta.level }}</td>
                     <td>{{ carta.school?.name ?? '-' }}</td>
@@ -85,7 +88,7 @@
 }
 
 .filaContenido {
-    overflow: hidden;
+    overflow-y: auto;
     will-change: max-height, opacity;
     max-height: 0;
     opacity: 1;
@@ -143,7 +146,9 @@ td {
 
 <script setup>
 import { onMounted, ref } from 'vue';
+import { useConjurosStore } from '../stores/conjuros';
 
+const conjurosStore = useConjurosStore()
 const cartas = ref([])
 const abiertas = ref(new Set()) //registro de cartas desplegadas y que no
 
@@ -152,8 +157,8 @@ onMounted(async () => {
     cartas.value = await res.json()
 })
 
-//fFuncion para controlar el despliegue de la descripcion
-const toggleSelected = (index) => {
+//Funcion para controlar el despliegue de la descripcion
+const toggleAbiertas = (index) => {
     if (abiertas.value.has(index)) { //Si el registro tiene el valor de ese index  lo elimina. El .value es por ref()
         abiertas.value.delete(index)
     } else {

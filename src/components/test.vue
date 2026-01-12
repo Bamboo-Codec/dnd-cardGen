@@ -8,15 +8,19 @@
                 <span>Conjuros</span>
             </div>
         </div>
-        <div class="container">
+        <div class="container fila">
             <div class="tableContainer">
                 <TablaConjuros></TablaConjuros>
+            </div>
+            <div class="listContainer">
+                <ListaConjuros></ListaConjuros>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import ListaConjuros from './ListaConjuros.vue';
 import TablaConjuros from './tablaConjuros.vue';
 
 </script>
@@ -68,9 +72,23 @@ import TablaConjuros from './tablaConjuros.vue';
     margin-top: 40px;
     margin-left: 40px;
     border: 5px solid #a83605;
-    width: 850px;
-    height: 400px;
+    width:80%;
+    height: 70%;
     display: flex;
+    justify-content: center;
+    align-items: start;
+    overflow-y: auto;
+}
+
+.listContainer{
+    position: absolute;
+    margin-top: 40px;
+    margin-right: 40px;
+    margin-left: 40px;
+    right: 0;
+    border: 5px solid #a83605;
+    width: 13%;
+    height: 70%;
     justify-content: center;
     align-items: start;
     overflow-y: auto;
