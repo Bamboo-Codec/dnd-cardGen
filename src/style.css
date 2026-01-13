@@ -19,7 +19,7 @@ html, body, #app{
 
 .checkbox-oculto {
     position: absolute;
-    opacity: 0;
+    opacity: 1;
     cursor: pointer;
 }
 

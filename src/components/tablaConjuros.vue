@@ -39,10 +39,7 @@
                 <!-- fila principal -->
                 <tr>
                     <td @click="toggleAbiertas(index)"><img style="width: 10px; transition: transform 0.2s ease;" src="/flecha-conjuro.png" :class="{rotar: abiertas.has(index)}"></img></td>
-                    <td>
-                        <input @click="conjurosStore.toggleConjuro(carta)" :checked="conjurosStore.estaSeleccionado(carta.index)" class="checkbox-oculto" type="checkbox" :id="'check'+index">
-                        <label  :for="'check'+index" class="check-custom"></label>
-                    </td>
+                    <td @click="toggleChecks(index)"><img :src=""></td>
                     <td style="text-align: left;">{{ carta.name }}</td>
                     <td>{{ carta.level }}</td>
                     <td>{{ carta.school?.name ?? '-' }}</td>
@@ -151,6 +148,8 @@ import { useConjurosStore } from '../stores/conjuros';
 const conjurosStore = useConjurosStore()
 const cartas = ref([])
 const abiertas = ref(new Set()) //registro de cartas desplegadas y que no
+const checks = ref(new Set) //registro de checks
+const checkIMG = ref('')
 
 onMounted(async () => {
     const res = await fetch('./spells.json') //cuando se monta el componente solicita los conjuros
@@ -165,6 +164,22 @@ const toggleAbiertas = (index) => {
         abiertas.value.add(index) //Si no, lo agrega
     }
 }
+
+const toggleChecks = (index) => {
+    if (abiertas.value.has(index)) {
+        abiertas.value.delete(index)
+    } else {
+        abiertas.value.add(index)
+    }
+}
+
+const decideCheckImg = (index) => {
+    if (checks.value.has(index)) {
+        checkIMG.value = './checkbox-chequed.png'
+    } else {
+        checkIMG.value = './checkbox-unchequed.png'
+    }
+} 
 
 // Funcion para obtener componentes y secuenciarlos
 const getComponentes = (carta) => {
