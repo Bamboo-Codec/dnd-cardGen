@@ -37,9 +37,9 @@
         <tbody>
             <template v-for="(carta, index) in cartas" :key="index">
                 <!-- fila principal -->
-                <tr>
+                <tr :id="`conjuro-${carta.index}`">
                     <td @click="toggleAbiertas(index)"><img style="width: 10px; transition: transform 0.2s ease;" src="/flecha-conjuro.png" :class="{rotar: abiertas.has(index)}"></img></td>
-                    <td @click="toggleChecks(index)"><img :src=""></td>
+                    <td @click="toggleChecks(index,carta)"><img :src="decideCheckImg(index)"></td>
                     <td style="text-align: left;">{{ carta.name }}</td>
                     <td>{{ carta.level }}</td>
                     <td>{{ carta.school?.name ?? '-' }}</td>
@@ -139,6 +139,16 @@ td {
     color: #4a2a00;
     font-weight: 700;
 }
+
+@keyframes resaltar {
+  from { background-color: #fff3b0; }
+  to { background-color: transparent; }
+}
+
+.resaltado {
+  animation: resaltar 2s ease;
+}
+
 </style>
 
 <script setup>
@@ -148,8 +158,7 @@ import { useConjurosStore } from '../stores/conjuros';
 const conjurosStore = useConjurosStore()
 const cartas = ref([])
 const abiertas = ref(new Set()) //registro de cartas desplegadas y que no
-const checks = ref(new Set) //registro de checks
-const checkIMG = ref('')
+const checks = ref(new Set()) //registro de checks
 
 onMounted(async () => {
     const res = await fetch('./spells.json') //cuando se monta el componente solicita los conjuros
@@ -165,19 +174,20 @@ const toggleAbiertas = (index) => {
     }
 }
 
-const toggleChecks = (index) => {
-    if (abiertas.value.has(index)) {
-        abiertas.value.delete(index)
+const toggleChecks = (index, carta) => {
+    if (checks.value.has(index)) {
+        checks.value.delete(index)
     } else {
-        abiertas.value.add(index)
+        checks.value.add(index)
     }
+    conjurosStore.toggleConjuro(carta)
 }
 
 const decideCheckImg = (index) => {
     if (checks.value.has(index)) {
-        checkIMG.value = './checkbox-chequed.png'
+        return '/checkbox-chequed.png'
     } else {
-        checkIMG.value = './checkbox-unchequed.png'
+        return '/checkbox-unchequed.png'
     }
 } 
 

@@ -1,7 +1,9 @@
 <template>
     <h2 class="font-skranji-reg">CONJUROS SELECCIONADOS</h2>
     <ol>
-        <li v-for="carta in cartas" class="font-medieval">{{ carta.name }}</li>
+        <li @click="emitIrAConjuro(carta.index)" v-for="carta in cartas" class="font-medieval">
+            {{ carta.name }}
+        </li>
     </ol>
 </template>
 
@@ -30,4 +32,11 @@ import { useConjurosStore } from '../stores/conjuros';
     onMounted(()=>{
         cartas.value = conjurosStore.getConjuros()
     })
+
+    const emit = defineEmits(['ir-a-conjuro'])
+
+    const emitIrAConjuro = (id) => {
+        console.log("emitiendo conjuro ", id)
+        emit('ir-a-conjuro',id)
+    }
 </script>

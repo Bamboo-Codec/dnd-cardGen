@@ -8,30 +8,60 @@
                 <span>Conjuros</span>
             </div>
         </div>
+
         <div class="container fila">
-            <div class="tableContainer">
+            
+            <div class="tableContainer" ref="tableContainer">
                 <TablaConjuros></TablaConjuros>
             </div>
             <div class="listContainer">
-                <ListaConjuros></ListaConjuros>
+                <ListaConjuros @ir-a-conjuro="scrollToConjuro"></ListaConjuros>
             </div>
         </div>
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import { ref } from 'vue';
 import ListaConjuros from './ListaConjuros.vue';
 import TablaConjuros from './tablaConjuros.vue';
 
+
+const tableContainer = ref(null)
+
+//función para hacer scroll hacia el conjuro (el id llega como parametro desde el hijo)
+const scrollToConjuro = (id) => {
+    console.log("ID recibido:", id)
+
+    //obtiene la fila con el id
+    const row = document.getElementById(`conjuro-${id}`)
+    console.log('Fila encontrada:', row)
+
+    //guarda la referencia al contenedor
+    const container = tableContainer.value
+    console.log('Contenedor:', container)
+
+    //si no hay fila o contenedor termina la función
+    if (!row || !container) return
+
+        const rowTop = row.offsetTop
+        const containerTop = container.offsetTop
+
+    //acciona el scroll
+    container.scrollTo({
+        top: rowTop - containerTop,
+        behavior: 'smooth'
+    })
+
+    row.classList.add('resaltado')
+    setTimeout(() => {row.classList.remove('resaltado')}, 2000)
+}
 </script>
 
 <style setup>
-
 .modulo {
     overflow: hidden;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 .header {
@@ -64,25 +94,35 @@ import TablaConjuros from './tablaConjuros.vue';
 
 .container{
     display: flex;
-    flex:1;
-    overflow: hidden;
+    flex-wrap: wrap;
     background-color: #ffde59;
-    padding: 40px;
-    gap: 40px;
-    
+    width: 100%;
+    height: 100%;
 }
 
 .tableContainer{
+    margin-top: 40px;
+    margin-left: 40px;
     border: 5px solid #a83605;
     width:80%;
-    height: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
     overflow-y: auto;
 }
 
 .listContainer{
+    position: absolute;
+    margin-top: 40px;
+    margin-right: 40px;
+    margin-left: 40px;
+    right: 0;
     border: 5px solid #a83605;
     width: 13%;
+    height: 70%;
+    justify-content: center;
+    align-items: start;
     overflow-y: auto;
-    height: 100%;
 }
 </style>
