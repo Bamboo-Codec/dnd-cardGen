@@ -40,14 +40,14 @@
                 <tr :id="`conjuro-${carta.index}`">
                     <td @click="toggleAbiertas(index)"><img style="width: 10px; transition: transform 0.2s ease;" src="/flecha-conjuro.png" :class="{rotar: abiertas.has(index)}"></img></td>
                     <td @click="toggleChecks(index,carta)"><img :src="decideCheckImg(index)"></td>
-                    <td style="text-align: left;">{{ carta.name }}</td>
+                    <td @click="toggleAbiertas(index)" style="text-align: left;">{{ carta.name }}</td>
                     <td>{{ carta.level }}</td>
                     <td>{{ carta.school?.name ?? '-' }}</td>
                     <td>{{ getComponentes(carta).join(' . ') }}</td>
                     <td>{{ carta.casting_time }}</td>
                     <td>{{ carta.duration }}</td>
                     <td>{{ carta.range }}</td>
-                    <td>F</td>
+                    <td v-show="false">F</td>
                     <td></td>
                 </tr>
 

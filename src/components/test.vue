@@ -4,18 +4,24 @@
             <img class="imageHeader" src="/App-logo.png">
         </div>
         <div class="fila tabs">
-            <div class="tab">
+            <div class="tab font-skranji-bold">
                 <span>Conjuros</span>
             </div>
         </div>
 
+
+
         <div class="container fila">
+
+            <button class="button font-skranji-reg" @click="generarCartas()">Generar cartas</button>
             
-            <div class="tableContainer" ref="tableContainer">
-                <TablaConjuros></TablaConjuros>
-            </div>
-            <div class="listContainer">
-                <ListaConjuros @ir-a-conjuro="scrollToConjuro"></ListaConjuros>
+            <div class=tablesContainer>
+                <div class="tableContainer" ref="tableContainer">
+                    <TablaConjuros></TablaConjuros>
+                </div>
+                <div class="listContainer">
+                    <ListaConjuros @ir-a-conjuro="scrollToConjuro"></ListaConjuros>
+                </div>
             </div>
         </div>
     </div>
@@ -25,8 +31,9 @@
 import { ref } from 'vue';
 import ListaConjuros from './ListaConjuros.vue';
 import TablaConjuros from './tablaConjuros.vue';
+import { useRouter } from 'vue-router';
 
-
+const router = useRouter()
 const tableContainer = ref(null)
 
 //función para hacer scroll hacia el conjuro (el id llega como parametro desde el hijo)
@@ -55,6 +62,11 @@ const scrollToConjuro = (id) => {
 
     row.classList.add('resaltado')
     setTimeout(() => {row.classList.remove('resaltado')}, 2000)
+}  
+
+
+const generarCartas = () => {
+    router.push({name: 'generador'})
 }
 </script>
 
@@ -87,12 +99,20 @@ const scrollToConjuro = (id) => {
     border: 2px solid #a83605;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    font-family: 'Skranji', cursive;
-    font-weight: 400;
+    border-bottom: none;
     color: #a83605;
+    background-color: #ffde59;
 }
 
 .container{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #ffde59;
+    width: 100%;
+    height: 100%;
+}
+
+.tablesContainer{
     display: flex;
     flex-wrap: wrap;
     background-color: #ffde59;
@@ -124,5 +144,16 @@ const scrollToConjuro = (id) => {
     justify-content: center;
     align-items: start;
     overflow-y: auto;
+}
+.button{
+    margin-left: 2%; 
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #a83605;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: medium;
+    cursor: pointer;
 }
 </style>
