@@ -70,7 +70,7 @@ const generarCartas = () => {
 }
 </script>
 
-<style setup>
+<style scoped>
 .modulo {
     overflow: hidden;
     height: 100vh;
