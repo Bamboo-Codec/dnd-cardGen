@@ -7,7 +7,7 @@
                 <span>Conjuros</span>
             </div>
         </div>
-
+ 
         <div class="container columna">
             <button class="button font-skranji-reg" @click="generarCartas()">Generar cartas</button>
             
