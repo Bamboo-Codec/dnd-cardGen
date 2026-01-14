@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import Inicio from "../components/inicio.vue";
 import Generador from "../components/generador.vue";
 import Detalles from "../components/detalles.vue";
-import Test from "../components/test.vue";
 
 const router = createRouter(
     {
@@ -30,12 +29,6 @@ const router = createRouter(
                 name: "detalles",
                 component: Detalles,
                 meta: {title: "D&D CardGen | Detalles"}
-            },
-            {
-                path: "/test",
-                name: "/test",
-                component:Test,
-                meta: {title: "Test"}
             },
         ]
     }
