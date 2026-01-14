@@ -1,73 +1,73 @@
 <template>
-    <table class="table">
-
-        <colgroup>
-            <!-- columnas especiales -->
-            <col style="width: 40px"> <!-- flecha -->
-            <col style="width: 40px"> <!-- checkbox -->
-            <!-- columnas normales -->
-            <col style="width: 30%"> <!-- nombre -->
-            <col> <!-- nivel -->
-            <col> <!-- escuela -->
-            <col> <!-- componentes -->
-            <col> <!-- tiempo -->
-            <col> <!-- duracion -->
-            <col> <!-- alcance -->
-            <!-- favorito -->
-            <col style="width: 40px;">
-            <col style="width: 16px;"> <!-- scroll -->
-        </colgroup>
-
-
-        <thead>
-            <tr>
-                <th colspan=2></th>
-                <th style="text-align: left;">Nombre</th>
-                <th>Nivel</th>
-                <th>Escuela</th>
-                <th>Componentes</th>
-                <th>Tiempo</th>
-                <th>Duracion</th>
-                <th>Alcance</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <template v-for="(carta, index) in cartas" :key="index">
-                <!-- fila principal -->
-                <tr :id="`conjuro-${carta.index}`">
-                    <td @click="toggleAbiertas(index)"><img style="width: 10px; transition: transform 0.2s ease;" src="/flecha-conjuro.png" :class="{rotar: abiertas.has(index)}"></img></td>
-                    <td @click="toggleChecks(index,carta)"><img :src="decideCheckImg(index)"></td>
-                    <td @click="toggleAbiertas(index)" style="text-align: left;">{{ carta.name }}</td>
-                    <td>{{ carta.level }}</td>
-                    <td>{{ carta.school?.name ?? '-' }}</td>
-                    <td>{{ getComponentes(carta).join(' . ') }}</td>
-                    <td>{{ carta.casting_time }}</td>
-                    <td>{{ carta.duration }}</td>
-                    <td>{{ carta.range }}</td>
-                    <td v-show="false">F</td>
-                    <td></td>
+        <table class="table">
+    
+            <colgroup>
+                <!-- columnas especiales -->
+                <col style="width: 40px"> <!-- flecha -->
+                <col style="width: 40px"> <!-- checkbox -->
+                <!-- columnas normales -->
+                <col style="width: 30%"> <!-- nombre -->
+                <col> <!-- nivel -->
+                <col> <!-- escuela -->
+                <col> <!-- componentes -->
+                <col> <!-- tiempo -->
+                <col> <!-- duracion -->
+                <col> <!-- alcance -->
+                <!-- favorito -->
+                <col style="width: 40px;">
+                <col style="width: 16px;"> <!-- scroll -->
+            </colgroup>
+    
+    
+            <thead>
+                <tr>
+                    <th colspan=2></th>
+                    <th style="text-align: left;">Nombre</th>
+                    <th>Nivel</th>
+                    <th>Escuela</th>
+                    <th>Componentes</th>
+                    <th>Tiempo</th>
+                    <th>Duracion</th>
+                    <th>Alcance</th>
+                    <th></th>
+                    <th></th>
                 </tr>
-
-                <!-- fila detalle -->
-
-                <tr class="detalle-row">
-                    <td :colspan="2"></td>
-                    <td :colspan="7" class="detalle">
-                        <div class="filaContenido" :class="{'abierta': abiertas.has(index)}">
-
-                            <p v-for="(p, i) in carta.desc" class="detalle" :key="i">
-                                {{ p }}
-                            </p>
-                        </div>
-                    </td>
-                    <td :colspan="2"></td>
-                </tr>
-            </template>
-        </tbody>
-    </table>
+            </thead>
+    
+            <tbody>
+                <template v-for="(carta, index) in cartas" :key="index">
+                    <!-- fila principal -->
+                    <tr :id="`conjuro-${carta.index}`">
+                        <td @click="toggleAbiertas(index)"><img style="width: 10px; transition: transform 0.2s ease;" src="/flecha-conjuro.png" :class="{rotar: abiertas.has(index)}"></img></td>
+                        <td @click="toggleChecks(index,carta)"><img :src="decideCheckImg(index)"></td>
+                        <td @click="toggleAbiertas(index)" style="text-align: left;">{{ carta.name }}</td>
+                        <td>{{ carta.level }}</td>
+                        <td>{{ carta.school?.name ?? '-' }}</td>
+                        <td>{{ getComponentes(carta).join(' . ') }}</td>
+                        <td>{{ carta.casting_time }}</td>
+                        <td>{{ carta.duration }}</td>
+                        <td>{{ carta.range }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+    
+                    <!-- fila detalle -->
+    
+                    <tr class="detalle-row">
+                        <td :colspan="2"></td>
+                        <td :colspan="7" class="detalle">
+                            <div class="filaContenido" :class="{'abierta': abiertas.has(index)}">
+    
+                                <p v-for="(p, i) in carta.desc" class="detalle" :key="i">
+                                    {{ p }}
+                                </p>
+                            </div>
+                        </td>
+                        <td :colspan="2"></td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
 </template>
 
 <style scoped>
@@ -105,6 +105,7 @@
 .table {
     width: 100%;
     border-collapse: collapse;
+    height: 100%;
 }
 
 /* encabezado fijo */

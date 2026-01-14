@@ -1,8 +1,8 @@
 html, body, #app{
+  height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
 }
 
 .fila{
@@ -13,31 +13,6 @@ html, body, #app{
 .columna{
     display: flex;
     flex-direction: column;
-}
-
-/* -------------------- input checkbox ----------- */
-
-.checkbox-oculto {
-    position: absolute;
-    opacity: 1;
-    cursor: pointer;
-}
-
-.check-custom {
-  width: 10px;
-  height: 10px;
-  border: 2px solid #a83605;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffde59;
-}
-
-.checkbox-oculto:checked + .check-custom {
-  background-color: #a83605;
 }
 
 /* ------------------ Tipografias ---------------- */

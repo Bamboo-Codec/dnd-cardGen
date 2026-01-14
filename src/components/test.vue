@@ -1,5 +1,4 @@
 <template>
-    <div class="modulo">
         <div class="fila header">
             <img class="imageHeader" src="/App-logo.png">
         </div>
@@ -9,22 +8,16 @@
             </div>
         </div>
 
-
-
-        <div class="container fila">
-
+        <div class="container columna">
             <button class="button font-skranji-reg" @click="generarCartas()">Generar cartas</button>
             
-            <div class=tablesContainer>
-                <div class="tableContainer" ref="tableContainer">
-                    <TablaConjuros></TablaConjuros>
-                </div>
-                <div class="listContainer">
-                    <ListaConjuros @ir-a-conjuro="scrollToConjuro"></ListaConjuros>
-                </div>
+            <div class="tablesContainer fila">
+                <div class="tableContainer" ref="tableContainer"><TablaConjuros></TablaConjuros></div>
+                <div class="listContainer"><ListaConjuros @ir-a-conjuro="scrollToConjuro"></ListaConjuros></div>
             </div>
+
+            <router-link to="/detalles" class="version">version 0.2</router-link>
         </div>
-    </div>
 </template>
 
 <script setup>
@@ -51,8 +44,8 @@ const scrollToConjuro = (id) => {
     //si no hay fila o contenedor termina la función
     if (!row || !container) return
 
-        const rowTop = row.offsetTop
-        const containerTop = container.offsetTop
+    const rowTop = row.offsetTop
+    const containerTop = container.offsetTop
 
     //acciona el scroll
     container.scrollTo({
@@ -61,20 +54,16 @@ const scrollToConjuro = (id) => {
     })
 
     row.classList.add('resaltado')
-    setTimeout(() => {row.classList.remove('resaltado')}, 2000)
-}  
+    setTimeout(() => { row.classList.remove('resaltado') }, 2000)
+}
 
 
 const generarCartas = () => {
-    router.push({name: 'generador'})
+    router.push({ name: 'generador' })
 }
 </script>
 
 <style scoped>
-.modulo {
-    overflow: hidden;
-    height: 100vh;
-}
 
 .header {
     background-color: #fdff96;
@@ -86,7 +75,7 @@ const generarCartas = () => {
     width: 270px;
 }
 
-.tabs{
+.tabs {
     background-color: #fdff96;
     height: 30px;
     justify-content: flex-start;
@@ -94,7 +83,7 @@ const generarCartas = () => {
     padding-top: 10px;
 }
 
-.tab{
+.tab {
     padding: 5px;
     border: 2px solid #a83605;
     border-top-left-radius: 10px;
@@ -104,56 +93,73 @@ const generarCartas = () => {
     background-color: #ffde59;
 }
 
-.container{
-    display: flex;
-    flex-wrap: wrap;
+.button {
+    background-color: #a83605;
+    width: fit-content;
+    margin: 15px;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    font-size: small;
+    cursor: pointer;
+    border: none;
+}
+
+.container {
+    display: grid;
     background-color: #ffde59;
     width: 100%;
-    height: 100%;
+    min-height: calc(100% - 70px - 40px); /* menos el header y los tabs */
 }
 
 .tablesContainer{
-    display: flex;
     flex-wrap: wrap;
-    background-color: #ffde59;
-    width: 100%;
-    height: 100%;
+    padding: 0 2% 0 2%;
+    justify-content: space-between;
 }
 
 .tableContainer{
-    margin-top: 40px;
-    margin-left: 40px;
-    border: 5px solid #a83605;
-    width:80%;
-    height: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: start;
+    max-height: 400px;
+    min-width: min-content;
+    max-width: 70%;
+
+    border: 2px solid #a83605;
+
     overflow-y: auto;
 }
 
 .listContainer{
-    position: absolute;
-    margin-top: 40px;
-    margin-right: 40px;
-    margin-left: 40px;
-    right: 0;
-    border: 5px solid #a83605;
-    width: 13%;
-    height: 70%;
-    justify-content: center;
-    align-items: start;
-    overflow-y: auto;
+    border: 2px solid #a83605;
 }
-.button{
-    margin-left: 2%; 
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #a83605;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: medium;
-    cursor: pointer;
+
+.version {
+    color:#a83605;
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin-right: 2%;
+    padding-bottom: 20px;
 }
+
+
+@media screen and (max-width: 1086px) {
+
+    .listContainer{
+        margin-top: 20px;
+    }
+
+    .container {
+        padding-bottom: 50px;
+    }
+}
+
+@media screen and (max-width: 768px ) {
+    .listContainer{
+        margin-top: 20px;
+    }
+
+    .container{
+        overflow-x: auto;
+    }
+}
+
 </style>
