@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Inicio from "../components/inicio.vue";
 import Generador from "../components/generador.vue";
 import Detalles from "../components/detalles.vue";
+import Layout1 from "../components/Layouts/layout1.vue";
 
 const router = createRouter(
     {
@@ -14,8 +15,9 @@ const router = createRouter(
             { //Inicio
                 path: "/inicio",
                 name: 'inicio',
-                component: Inicio,
-                meta: {title: "D&D CardGen | Inicio"}
+                component: Layout1,
+                meta: {title: "D&D CardGen | Inicio"},
+                props: {Modulo: Inicio}
             },
             {
                 path: "/generador",
