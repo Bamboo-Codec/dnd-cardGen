@@ -1,172 +1,165 @@
 <template>
+        <div class="fila header">
+            <img class="imageHeader" src="/App-logo.png">
+        </div>
+        <div class="fila tabs">
+            <div class="tab font-skranji-bold">
+                <span>Conjuros</span>
+            </div>
+        </div>
 
-<header class="header">
-    <button style="margin-left: 2%;" @click="generarCartas()">Generar cartas</button>
-    <router-link to="/detalles" style="margin-right: 2%; color:white;">version 0.1</router-link>
-</header>
+        <div class="container columna">
+            <button class="button font-skranji-reg" @click="generarCartas()">Generar cartas</button>
+            
+            <div class="tablesContainer fila">
+                <div class="tableContainer" ref="tableContainer"><TablaConjuros></TablaConjuros></div>
+                <div class="listContainer"><ListaConjuros @ir-a-conjuro="scrollToConjuro"></ListaConjuros></div>
+            </div>
 
-    <div class="contenedor">
-        <ul class="lista">
-            <li>
-                <div v-if="cartas.length > 1" class="fila elemento">
-                    <div><span>flecha</span></div>
-                    <div><span>check</span></div>
-                    <div><span>Nombre</span></div>
-                    <div><span>Nivel</span></div>
-                    <div><span>Escuela</span></div>
-                    <div><span>Componentes</span></div>
-                    <div><span>Tiempo</span></div>
-                    <div><span>Duración</span></div>
-                    <div><span>Alcance</span></div>
-                </div>
-            </li>
-            <li v-for="(carta, index) in cartas" :key="index" class="elemento">
-                <div class="columna">
-                    <div class="fila elemento">
-                        <div>
-                            <button @click="toggle(index)">
-                                {{ abiertas.has(index) ? '▼' : '▶' }}
-                            </button>
-                        </div>
-                        <div><input
-                            type="checkbox"
-                            :checked="conjurosStore.estaSeleccionado(carta.index)"
-                            @change="conjurosStore.toggleConjuro(carta)">
-                        </div>
-                        <div><span>{{ carta.name }}</span></div>
-                        <div><span class="celdaNivel">{{ carta.level }}</span></div>
-                        <div><span>{{ carta.school?.name ?? '-' }}</span></div>
-                        <div><span>{{ getComponentes(carta).join(' . ') }}</span></div>
-                        <div><span>{{ carta.casting_time }}</span></div>
-                        <div><span>{{ carta.duration }}</span></div>
-                        <div><span>{{ carta.range }}</span></div>
-                    </div>
-
-                    <!-- DESCRIPCIÓN DESPLEGABLE -->
-                    <div class="detalle" :class="{ abierta: abiertas.has(index) }">
-                        <p v-for="(p, i) in carta.desc" :key="i">
-                            {{ p }}
-                        </p>
-
-                        <p v-if="carta.higher_level">
-                            <strong>A niveles superiores:</strong>
-                            {{ carta.higher_level[0] }}
-                        </p>
-                    </div>
-
-                </div>
-            </li>
-        </ul>
-    </div>
-
+            <router-link to="/detalles" class="version">version 0.2</router-link>
+        </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useConjurosStore } from '../stores/conjuros'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue';
+import ListaConjuros from './ListaConjuros.vue';
+import TablaConjuros from './tablaConjuros.vue';
+import { useRouter } from 'vue-router';
 
 const router = useRouter()
-const conjurosStore = useConjurosStore()
-const cartas = ref([])
+const tableContainer = ref(null)
 
-onMounted(async () => {
-    const res = await fetch('./spells.json')
-    cartas.value = await res.json()
-})
+//función para hacer scroll hacia el conjuro (el id llega como parametro desde el hijo)
+const scrollToConjuro = (id) => {
+    console.log("ID recibido:", id)
 
-const getComponentes = (carta) => {
-    const componentes = [...(carta.components ?? [])]
-    if (carta.ritual) {
-        componentes.push("R")
-    }
-    if (carta.concentration) {
-        componentes.push("C")
-    }
-    return componentes
+    //obtiene la fila con el id
+    const row = document.getElementById(`conjuro-${id}`)
+    console.log('Fila encontrada:', row)
+
+    //guarda la referencia al contenedor
+    const container = tableContainer.value
+    console.log('Contenedor:', container)
+
+    //si no hay fila o contenedor termina la función
+    if (!row || !container) return
+
+    const rowTop = row.offsetTop
+    const containerTop = container.offsetTop
+
+    //acciona el scroll
+    container.scrollTo({
+        top: rowTop - containerTop,
+        behavior: 'smooth'
+    })
+
+    row.classList.add('resaltado')
+    setTimeout(() => { row.classList.remove('resaltado') }, 2000)
 }
 
-const abiertas = ref(new Set())
-
-const toggle = (index) => {
-    if (abiertas.value.has(index)) {
-        abiertas.value.delete(index)
-    } else {
-        abiertas.value.add(index)
-    }
-}
 
 const generarCartas = () => {
-    router.push({name: 'generador'})
+    router.push({ name: 'generador' })
 }
-
 </script>
 
 <style scoped>
 
-    body {
-    margin: 0; /* Elimina el margen por defecto */
-    padding-top: 60px; /* Espacio para el header fijo, ajusta según tu altura */
-    font-family: sans-serif;
-  }
+.header {
+    background-color: #fdff96;
+    height: 70px;
+}
 
-.header{
-    display: flex;
-    justify-content: space-between;
+.imageHeader {
+    object-fit: contain;
+    width: 270px;
+}
+
+.tabs {
+    background-color: #fdff96;
+    height: 30px;
+    justify-content: flex-start;
     align-items: center;
-    position: fixed; /* Lo fija en la ventana */
-    top: 0; /* Lo pega a la parte superior */
-    left: 0; /* Lo pega al borde izquierdo */
-    width: 100%; /* Ocupa todo el ancho */
-    background-color: #333;
+    padding-top: 10px;
+}
+
+.tab {
+    padding: 5px;
+    border: 2px solid #a83605;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: none;
+    color: #a83605;
+    background-color: #ffde59;
+}
+
+.button {
+    background-color: #a83605;
+    width: fit-content;
+    margin: 15px;
+    padding: 10px;
     color: white;
-    padding: 10px 0;
-    text-align: center;
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    border-radius: 5px;
+    font-size: small;
+    cursor: pointer;
+    border: none;
 }
 
-.lista{
-    list-style-type: none;
-}    
-:global(body) {
-    background-color: #f7f7f7;
-}
-
-.contenedor {
-    margin-top:20px;
-    display: flex;
-    width: 80%;
-}
-
-.elemento {
+.container {
+    display: grid;
+    background-color: #ffde59;
     width: 100%;
-    min-height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    min-height: calc(100% - 70px - 40px); /* menos el header y los tabs */
 }
 
-.elemento>div {
-    width: 100%;
+.tablesContainer{
+    flex-wrap: wrap;
+    padding: 0 2% 0 2%;
+    justify-content: space-between;
 }
 
-.detalle {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.35s ease, opacity 0.2s ease;
-    opacity: 0;
-    padding: 0 12px;
-    background: #f0f0f0;
+.tableContainer{
+    max-height: 400px;
+    min-width: min-content;
+    max-width: 70%;
+
+    border: 2px solid #a83605;
+
+    overflow-y: auto;
 }
 
-.detalle.abierta {
-    max-height: 300px; /* ajustable */
-    opacity: 1;
-    padding: 12px;
+.listContainer{
+    border: 2px solid #a83605;
 }
 
-.elemento>div{
-    display: flex;
-    justify-content: center;
+.version {
+    color:#a83605;
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin-right: 2%;
+    padding-bottom: 20px;
 }
+
+
+@media screen and (max-width: 1086px) {
+
+    .listContainer{
+        margin-top: 20px;
+    }
+
+    .container {
+        padding-bottom: 50px;
+    }
+}
+
+@media screen and (max-width: 768px ) {
+    .listContainer{
+        margin-top: 20px;
+    }
+
+    .container{
+        overflow-x: auto;
+    }
+}
+
 </style>
