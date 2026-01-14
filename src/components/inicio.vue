@@ -7,6 +7,7 @@
                 <span>Conjuros</span>
             </div>
         </div>
+        <TabsManager :tabs="tabs"></TabsManager>
 
         <div class="container columna">
             <button class="button font-skranji-reg" @click="generarCartas()">Generar cartas</button>
@@ -25,9 +26,22 @@ import { ref } from 'vue';
 import ListaConjuros from './ListaConjuros.vue';
 import TablaConjuros from './tablaConjuros.vue';
 import { useRouter } from 'vue-router';
+import TabsManager from './tabsManager.vue';
 
 const router = useRouter()
 const tableContainer = ref(null)
+const tabs = [
+    {
+        name:'Prueba',
+        destiny:'',
+        active:true
+    },
+    {
+        name:'Prueba 2',
+        destiny:'',
+        active:true
+    }
+]
 
 //función para hacer scroll hacia el conjuro (el id llega como parametro desde el hijo)
 const scrollToConjuro = (id) => {
@@ -96,6 +110,7 @@ const generarCartas = () => {
 .button {
     background-color: #a83605;
     width: fit-content;
+    height: fit-content;
     margin: 15px;
     padding: 10px;
     color: white;
@@ -106,7 +121,7 @@ const generarCartas = () => {
 }
 
 .container {
-    display: grid;
+    display: flex;
     background-color: #ffde59;
     width: 100%;
     min-height: calc(100% - 70px - 40px); /* menos el header y los tabs */
@@ -119,7 +134,7 @@ const generarCartas = () => {
 }
 
 .tableContainer{
-    max-height: 400px;
+    max-height: 650px;
     min-width: min-content;
     max-width: 70%;
 
@@ -129,22 +144,28 @@ const generarCartas = () => {
 }
 
 .listContainer{
+    min-width: min-content;
+    max-height: 650px;
     border: 2px solid #a83605;
+    overflow-y: auto;
 }
 
 .version {
+    position: relative;
+    bottom: 0;
     color:#a83605;
     align-self: flex-end;
-    justify-self: flex-end;
     margin-right: 2%;
-    padding-bottom: 20px;
+    margin-top:3%;
+    padding-bottom: 15px;
 }
 
 
-@media screen and (max-width: 1086px) {
+@media screen and (max-width: 1152px) {
 
     .listContainer{
         margin-top: 20px;
+        height: 400px;
     }
 
     .container {
@@ -157,8 +178,13 @@ const generarCartas = () => {
         margin-top: 20px;
     }
 
+    .version{
+        margin-top: 15px;
+    }
+
     .container{
         overflow-x: auto;
+        padding-bottom: 20px;
     }
 }
 
