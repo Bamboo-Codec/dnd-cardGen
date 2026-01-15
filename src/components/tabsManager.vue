@@ -1,8 +1,10 @@
 <template>
     <div class="fila tabs">
-        <div @click="selectTab(index)" v-for="(tab, index) in activeTabs" class="tab font-skranji-bold"
-            :class="{ 'selected': tabSelected == index }">
-            <span>{{ tab.name }}</span>
+        <div class="tabContainer fila">
+            <div @click="selectTab(index)" v-for="(tab, index) in activeTabs" class="tab font-skranji-bold"
+                :class="{ 'selected': tabSelected == index }">
+                <span class="spanText">{{ tab.name }}</span>
+            </div>
         </div>
     </div>
 </template>
@@ -11,34 +13,75 @@
 
 .tabs {
     display: flex;
-    background-color: #fdff96;
     height: 30px;
     padding-top: 10px;
-    border-bottom: 2px solid #a83605;
-    align-items: flex-end;
+    padding-left: 30px;
+    background-color: #fdff96;
+    align-items: flex-start;
+}
+
+.tabContainer{
+    position: relative;
+}
+
+/* cuadrados del tab */
+
+.tabContainer::after, .tabContainer::before{
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: #fdff96;
+    border-radius: 50%;
+    bottom: 0;
+    z-index: 5;
+}
+
+.tabContainer::before{
+    left: 100%;
+}
+
+.tabContainer::after{
+    right: 100%;
 }
 
 .tab {
     position: relative;
     min-width: fit-content;
     padding: 5px 10px;
-    border: 2px solid #a83605;
-    border-bottom: 1px solid #a83605;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     color: #a83605;
     background-color: #fdff96;
-
     display: flex;
     align-items: center;
 }
 
 .selected {
-        border-bottom: none;
-
-    padding-bottom: 7px;
+    position: relative;
     background-color: #ffde59;
     z-index: 1;
+}
+
+.selected::after, .selected::before{
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #fdff96;
+    border-radius: 50%;
+    bottom: 0;
+    z-index: 4;
+}
+
+.selected::before{
+    left: 100%;
+}
+
+.selected::after{
+    right: 100%;
+}
+
+.spanText{
+    z-index: 4;
 }
 </style>
 

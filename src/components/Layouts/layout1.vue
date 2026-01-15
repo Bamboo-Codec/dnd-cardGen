@@ -4,7 +4,7 @@
     </div>
     <TabsManager :tabs="tabs"></TabsManager>
     <div class="container">
-        <component :is="Modulo"></component>
+        <!-- <component :is="Modulo"></component> -->
     </div>
 </template>
 
@@ -18,7 +18,7 @@ const props = defineProps({
     }
 })
 
-const tabs = [{name: 'Conjuros', destiny:'inicio', active: true}]
+const tabs = [{name: 'Conjuros', destiny:'inicio', active: true},{name: 'Prueba', destiny:'inicio', active: true}]
 </script>
 
 <style scoped>
