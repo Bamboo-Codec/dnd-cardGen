@@ -1,9 +1,11 @@
 <template>
     <div class="fila tabs">
         <div class="tabContainer fila">
-            <div @click="selectTab(index)" v-for="(tab, index) in activeTabs" class="tab font-skranji-bold"
-                :class="{ 'selected': tabSelected == index }">
-                <span class="spanText">{{ tab.name }}</span>
+            <div class="tabSquareRef">
+                <div @click="selectTab(index)" v-for="(tab, index) in activeTabs" class="tab font-skranji-bold"
+                    :class="{ 'selected': tabSelected == index }">
+                    <span class="spanText">{{ tab.name }}</span>
+                </div>
             </div>
         </div>
     </div>
