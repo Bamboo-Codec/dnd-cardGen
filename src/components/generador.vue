@@ -3,8 +3,10 @@
         <button style="margin-left: 2%;" class="no-print" @click="volver()">Volver</button>
         <button style="margin-right: 2%;" class="no-print" @click="imprimir()">Imprimir</button>
     </header>
-    <div class="wrap sheet">
-        <Carta v-for="carta in cartasFinales" :key="carta.id" v-bind="carta"/>
+    <div class="print-container">
+        <div class="wrap sheet">
+            <Carta v-for="carta in cartasFinales" :key="carta.id" v-bind="carta"/>
+        </div>
     </div>
 
 

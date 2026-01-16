@@ -1,9 +1,9 @@
 <template>
     <div class="fila tabs">
         <div class="tabContainer fila">
-            <div class="tabSquareRef">
-                <div @click="selectTab(index)" v-for="(tab, index) in activeTabs" class="tab font-skranji-bold"
-                    :class="{ 'selected': tabSelected == index }">
+            <div @click="selectTab(index)" v-for="(tab, index) in activeTabs" class="tab font-skranji-bold"
+            :class="{ 'selected': tabSelected == index }">
+            <div :class="{'tabSquareRef': tabSelected == index}">
                     <span class="spanText">{{ tab.name }}</span>
                 </div>
             </div>
@@ -14,37 +14,17 @@
 <style scoped>
 
 .tabs {
+    min-width: min-content;
     display: flex;
     height: 30px;
     padding-top: 10px;
     padding-left: 30px;
     background-color: #fdff96;
-    align-items: flex-start;
+    align-items: flex-end;
 }
 
 .tabContainer{
     position: relative;
-}
-
-/* cuadrados del tab */
-
-.tabContainer::after, .tabContainer::before{
-    content: '';
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    background-color: #fdff96;
-    border-radius: 50%;
-    bottom: 0;
-    z-index: 5;
-}
-
-.tabContainer::before{
-    left: 100%;
-}
-
-.tabContainer::after{
-    right: 100%;
 }
 
 .tab {
@@ -55,6 +35,8 @@
     background-color: #fdff96;
     display: flex;
     align-items: center;
+
+    border-radius: 10px 10px 0 0;
 }
 
 .selected {
@@ -83,8 +65,30 @@
 }
 
 .spanText{
-    z-index: 4;
+    position: relative;
+    z-index: 6;
+    user-select: none;
 }
+
+.tabSquareRef::before, .tabSquareRef::after{
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    z-index: 3;
+    background-color: #ffde59;
+    bottom: 0;
+}
+
+.tabSquareRef::before{
+    left: 100%;
+}
+
+.tabSquareRef::after{
+    right: 100%;
+}
+
+
 </style>
 
 <script setup>
@@ -145,12 +149,11 @@ watch(
             tabSelected.value = 0
         }
     },
-    // { immediate: true }
+    { immediate: true }
 )
 
 const selectTab = (index) => {
     tabSelected.value = index
-    console.log('Tab seleccionado:', index)
     try {
         router.push(activeTabs.value[index].destiny)
     } catch (error) {

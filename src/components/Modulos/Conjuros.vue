@@ -1,47 +1,30 @@
 <template>
-        <div class="fila header">
-            <img class="imageHeader" src="/App-logo.png">
-        </div>
-        <div class="fila tabs">
-            <div class="tab font-skranji-bold">
-                <span>Conjuros</span>
+
+    <div class="container columna">
+        <button class="button font-skranji-reg" @click="generarCartas()">Generar cartas</button>
+
+        <div class="tablesContainer fila">
+            <div class="tableContainer" ref="tableContainer">
+                <TablaConjuros></TablaConjuros>
+            </div>
+            <div class="listContainer">
+                <ListaConjuros @ir-a-conjuro="scrollToConjuro"></ListaConjuros>
             </div>
         </div>
-        <TabsManager :tabs="tabs"></TabsManager>
 
-        <div class="container columna">
-            <button class="button font-skranji-reg" @click="generarCartas()">Generar cartas</button>
-            
-            <div class="tablesContainer fila">
-                <div class="tableContainer" ref="tableContainer"><TablaConjuros></TablaConjuros></div>
-                <div class="listContainer"><ListaConjuros @ir-a-conjuro="scrollToConjuro"></ListaConjuros></div>
-            </div>
+        <router-link to="/detalles" class="version">version 0.2</router-link>
+    </div>
 
-            <router-link to="/detalles" class="version">version 0.2</router-link>
-        </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import ListaConjuros from './ListaConjuros.vue';
-import TablaConjuros from './tablaConjuros.vue';
 import { useRouter } from 'vue-router';
-import TabsManager from './tabsManager.vue';
+import ListaConjuros from '../ListaConjuros.vue';
+import TablaConjuros from '../tablaConjuros.vue';
+import { ref } from 'vue';
 
 const router = useRouter()
 const tableContainer = ref(null)
-const tabs = [
-    {
-        name:'Prueba',
-        destiny:'',
-        active:true
-    },
-    {
-        name:'Prueba 2',
-        destiny:'',
-        active:true
-    }
-]
 
 //función para hacer scroll hacia el conjuro (el id llega como parametro desde el hijo)
 const scrollToConjuro = (id) => {
@@ -75,7 +58,9 @@ const scrollToConjuro = (id) => {
 const generarCartas = () => {
     router.push({ name: 'generador' })
 }
+
 </script>
+
 
 <style scoped>
 
@@ -83,7 +68,7 @@ const generarCartas = () => {
     background-color: #a83605;
     width: fit-content;
     height: fit-content;
-    margin: 15px;
+    margin: 15px 0 15px 40px;
     padding: 10px;
     color: white;
     border-radius: 5px;
@@ -108,7 +93,7 @@ const generarCartas = () => {
 .tableContainer{
     max-height: 650px;
     min-width: min-content;
-    max-width: 70%;
+    max-width: 80%;
 
     border: 2px solid #a83605;
 
@@ -133,15 +118,18 @@ const generarCartas = () => {
 }
 
 
-@media screen and (max-width: 1152px) {
+@media screen and (max-width: 1450px) {
 
     .listContainer{
         margin-top: 20px;
-        height: 400px;
+        min-height: 100px;
     }
 
     .container {
         padding-bottom: 50px;
+    }
+    .tableContainer{
+        max-width: 100%;
     }
 }
 

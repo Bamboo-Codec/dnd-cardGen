@@ -116,8 +116,9 @@ const props = defineProps({
     font-weight: bold;
     /**todos los textos internos serán bold */
     border: 1px solid black;
-    padding: 5px;
+    padding: 5px !important;
     border-radius: 10px;
+    margin: 0 !important;
 
 }
 
