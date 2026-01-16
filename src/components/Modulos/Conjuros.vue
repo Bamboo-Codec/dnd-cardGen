@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <router-link to="/detalles" class="version">version 0.2</router-link>
+        <router-link to="/detalles" class="version">version 0.3</router-link>
     </div>
 
 </template>

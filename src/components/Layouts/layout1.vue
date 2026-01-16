@@ -6,6 +6,7 @@
     <div class="container">
         <component :is="Modulo"></component>
     </div>
+    
 </template>
 
 <script setup>
