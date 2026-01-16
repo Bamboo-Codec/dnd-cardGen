@@ -61,36 +61,46 @@ html, body, #app{
 @media print {
   body {
     margin: 0;
+    padding: 0;
+  }
+
+  .print-container {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   .no-print {
-    display: none;
+    display: none !important;
   }
 
   .sheet {
     width: 190mm;
-    height: 277mm;
-
+    height: 277mm; /* Altura de página A4 menos márgenes */
+    margin: 0 auto;
+    padding: 10mm 0 0 0; /* Solo padding superior */
+    
     display: grid;
     grid-template-columns: repeat(2, 92mm);
     grid-template-rows: repeat(2, 100mm);
-
     gap: 5mm;
-
+    
+    /* Control de paginación */
     page-break-after: always;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 
   .carta {
     width: 92mm;
     height: 100mm;
-
     box-sizing: border-box;
     page-break-inside: avoid;
+    break-inside: avoid;
   }
 }
-
-
 @page {
-    size: A4;
-    margin: 10mm;
+  size: A4;
+  margin: 10mm;
 }
